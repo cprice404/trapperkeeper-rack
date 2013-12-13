@@ -10,7 +10,8 @@
                  [org.eclipse.jetty/jetty-servlet "7.6.1.v20120215"]
                  [org.clojure/tools.logging "0.2.6"]
                  [prismatic/plumbing "0.1.0"]
-                 [org.jruby.rack/jruby-rack "1.1.13.3"]
+                 [org.jruby/jruby "1.7.9"]
+                 [org.jruby.rack/jruby-rack "1.1.13.3" :exclusions [org.jruby/jruby-complete]]
                  [puppetlabs/trapperkeeper "0.1.0-SNAPSHOT"]]
 
   :repositories [["releases" "http://nexus.delivery.puppetlabs.net/content/repositories/releases/"]

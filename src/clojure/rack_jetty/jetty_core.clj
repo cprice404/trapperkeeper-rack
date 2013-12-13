@@ -168,7 +168,8 @@
 
 (defn add-rack-handler
   [webserver rack-path context-path]
-  (let [h (ServletContextHandler. nil context-path ServletContextHandler/NO_SESSIONS)]
+  (let [handlers  (:handlers webserver)
+        h         (ServletContextHandler. nil context-path ServletContextHandler/NO_SESSIONS)]
     (doto h
       (.addFilter RackFilter "/*" 0)
       (.setBaseResource (Resource/newResource (file rack-path)))
@@ -177,8 +178,10 @@
       (.setInitParameter "rackup" (slurp (file rack-path "config.ru")))
       (.setInitParameter "jruby.max.runtimes" "1"))
 
-    (.addHandler (:handlers webserver) h)
-    (.start h)))
+    (.addHandler handlers h)
+    (println "HANDLERS:" (count (.getHandlers handlers)))
+    (.start h)
+    h))
 
 (defn join
   [webserver]

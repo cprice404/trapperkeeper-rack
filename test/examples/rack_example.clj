@@ -6,5 +6,5 @@
   {:depends [[:rack-webserver-service add-rack-handler]]
    :provides [shutdown]}
   (log/info "Rack hello sinatra webservice starting up!")
-  (add-rack-handler "./src/ruby" "/hello-sinatra")
+  (add-rack-handler "./src/ruby" "/")
   {:shutdown (fn [] (log/info "Rack hello sinatra webservice shutting down!"))})
