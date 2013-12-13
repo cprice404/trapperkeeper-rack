@@ -12,7 +12,8 @@
            (org.eclipse.jetty.server.nio SelectChannelConnector)
            (javax.servlet.http HttpServletRequest HttpServletResponse)
            (java.util.concurrent Executors)
-           (org.eclipse.jetty.servlet ServletContextHandler)
+           (org.eclipse.jetty.servlet ServletContextHandler DefaultServlet
+                                      ServletHolder)
            (org.jruby.rack RackFilter RackServletContextListener)
            (org.eclipse.jetty.util.resource Resource))
   (:require [ring.util.servlet :as servlet]
@@ -176,7 +177,8 @@
       (.addEventListener (RackServletContextListener.))
 
       (.setInitParameter "rackup" (slurp (file rack-path "config.ru")))
-      (.setInitParameter "jruby.max.runtimes" "1"))
+      (.setInitParameter "jruby.max.runtimes" "1")
+      (.addServlet (ServletHolder. (DefaultServlet.)) "/"))
 
     (.addHandler handlers h)
     (println "HANDLERS:" (count (.getHandlers handlers)))
