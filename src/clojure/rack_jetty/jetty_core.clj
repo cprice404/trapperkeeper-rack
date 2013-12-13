@@ -11,10 +11,14 @@
            (org.eclipse.jetty.server.ssl SslSelectChannelConnector)
            (org.eclipse.jetty.server.nio SelectChannelConnector)
            (javax.servlet.http HttpServletRequest HttpServletResponse)
-           (java.util.concurrent Executors))
+           (java.util.concurrent Executors)
+           (org.eclipse.jetty.servlet ServletContextHandler)
+           (org.jruby.rack RackFilter RackServletContextListener)
+           (org.eclipse.jetty.util.resource Resource))
   (:require [ring.util.servlet :as servlet]
             [clojure.string :refer [split trim]]
             [clojure.tools.logging :as log]
+            [clojure.java.io :refer [file]]
             [puppetlabs.trapperkeeper.services.jetty.jetty-config :as jetty-config]))
 
 ;; Work around an issue with OpenJDK's PKCS11 implementation preventing TLSv1
@@ -164,7 +168,17 @@
 
 (defn add-rack-handler
   [webserver rack-path context-path]
-  (throw (IllegalArgumentException. "hiya")))
+  (let [h (ServletContextHandler. nil context-path ServletContextHandler/NO_SESSIONS)]
+    (doto h
+      (.addFilter RackFilter "/*" 0)
+      (.setBaseResource (Resource/newResource (file rack-path)))
+      (.addEventListener (RackServletContextListener.))
+
+      (.setInitParameter "rackup" (slurp (file rack-path "config.ru")))
+      (.setInitParameter "jruby.max.runtimes" "1"))
+
+    (.addHandler (:handlers webserver) h)
+    (.start h)))
 
 (defn join
   [webserver]

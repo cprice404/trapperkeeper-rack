@@ -7,6 +7,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [puppetlabs/kitchensink "0.3.1-SNAPSHOT"]
                  [org.eclipse.jetty/jetty-server "7.6.1.v20120215"]
+                 [org.eclipse.jetty/jetty-servlet "7.6.1.v20120215"]
                  [org.clojure/tools.logging "0.2.6"]
                  [prismatic/plumbing "0.1.0"]
                  [org.jruby.rack/jruby-rack "1.1.13.3"]
