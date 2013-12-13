@@ -176,7 +176,10 @@
       (.setBaseResource (Resource/newResource (file rack-path)))
       (.addEventListener (RackServletContextListener.))
 
-      (.setInitParameter "rackup" (slurp (file rack-path "config.ru")))
+      (.setInitParameter
+        "rackup"
+        (str "$LOAD_PATH.unshift(\"" rack-path "\")\n"
+             (slurp (file rack-path "config.ru"))))
       (.setInitParameter "jruby.max.runtimes" "1")
       (.addServlet (ServletHolder. (DefaultServlet.)) "/"))
 
