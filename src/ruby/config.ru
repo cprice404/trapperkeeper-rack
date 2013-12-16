@@ -1,4 +1,5 @@
+puts "GEM PATH: #{Gem.path}"
+puts "LOAD PATH: #{$LOAD_PATH}"
+puts "$: : #{$:}"
 require 'hello-sinatra'
-puts "WASSUP BITCHES"
-puts "LOAD PATH #{$LOAD_PATH}"
 run HelloSinatra

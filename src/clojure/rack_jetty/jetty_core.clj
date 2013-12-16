@@ -179,8 +179,11 @@
       (.setInitParameter
         "rackup"
         (str "$LOAD_PATH.unshift(\"" rack-path "\")\n"
+             "require '" rack-path "/bundle/setup.rb'\n"
              (slurp (file rack-path "config.ru"))))
       (.setInitParameter "jruby.max.runtimes" "1")
+      (.setInitParameter "jruby.runtime.env" "")
+      (.setInitParameter "gem.path" "gems/jruby/1.9/gems")
       (.addServlet (ServletHolder. (DefaultServlet.)) "/"))
 
     (.addHandler handlers h)
