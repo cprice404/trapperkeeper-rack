@@ -14,8 +14,9 @@
            (java.util.concurrent Executors)
            (org.eclipse.jetty.servlet ServletContextHandler DefaultServlet
                                       ServletHolder)
-           (org.jruby.rack RackFilter RackServletContextListener)
-           (org.eclipse.jetty.util.resource Resource))
+           (org.jruby.rack RackFilter RackServletContextListener RackServlet)
+           (org.eclipse.jetty.util.resource Resource)
+           (javax.servlet ServletConfig))
   (:require [ring.util.servlet :as servlet]
             [clojure.string :refer [split trim]]
             [clojure.tools.logging :as log]
