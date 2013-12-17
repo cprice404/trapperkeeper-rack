@@ -2,9 +2,16 @@
   (:require [puppetlabs.trapperkeeper.core :refer [defservice]]
             [clojure.tools.logging :as log]))
 
-(defservice rack-webservice
+(defservice hello-sinatra-service
   {:depends [[:rack-webserver-service add-rack-handler]]
    :provides [shutdown]}
   (log/info "Rack hello sinatra webservice starting up!")
-  (add-rack-handler "./src/ruby" "/hello-sinatra")
+  (add-rack-handler "./src/ruby/hello-sinatra" "/hello-sinatra")
   {:shutdown (fn [] (log/info "Rack hello sinatra webservice shutting down!"))})
+
+(defservice sinatra-consumer-service
+  {:depends [[:rack-webserver-service add-rack-handler]]
+   :provides [shutdown]}
+  (log/info "Rack sinatra consumer webservice starting up!")
+  (add-rack-handler "./src/ruby/sinatra-service-consumer" "/sinatra-consumer")
+  {:shutdown (fn [] (log/info "Rack sinatra consumer webservice shutting down!"))})
