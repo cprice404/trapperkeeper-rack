@@ -1,6 +1,7 @@
-(ns rack-jetty.jetty-service
+(ns rack-jetty.rack-jetty-service
   (:require
-    [rack-jetty.jetty-core :as core]
+    [rack-jetty.rack-jetty-core :as core]
+    [puppetlabs.trapperkeeper.services.jetty.jetty-core :as jetty-core]
     [puppetlabs.trapperkeeper.core :refer [defservice]]))
 
 (defservice rack-webserver-service
@@ -11,8 +12,8 @@
                       ;; Here for backward compatibility with existing projects
                       (get-in-config [:jetty])
                       {})
-        webserver (core/start-webserver config)]
-    {:add-ring-handler  (partial core/add-ring-handler webserver)
+        webserver (jetty-core/start-webserver config)]
+    {:add-ring-handler  (partial jetty-core/add-ring-handler webserver)
      :add-rack-handler  (partial core/add-rack-handler webserver)
-     :join              (partial core/join webserver)
-     :shutdown          (partial core/shutdown webserver)}))
+     :join              (partial jetty-core/join webserver)
+     :shutdown          (partial jetty-core/shutdown webserver)}))
