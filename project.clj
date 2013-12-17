@@ -18,6 +18,7 @@
                  ["snapshots" "http://nexus.delivery.puppetlabs.net/content/repositories/snapshots/"]]
 
   :source-paths ["src/clojure"]
+  :test-paths   ["test/clojure"]
 
   :profiles {:dev {:test-paths ["test-resources"]}
              :test {:dependencies [[puppetlabs/kitchensink "0.3.1-SNAPSHOT" :classifier "test"]]}}
