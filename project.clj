@@ -20,7 +20,8 @@
   :source-paths ["src/clojure"]
   :test-paths   ["test/clojure"]
 
-  :profiles {:dev {:test-paths ["test-resources"]}
+  :profiles {:dev {:test-paths ["test-resources"]
+                   :java-source-paths ["test/java"]}
              :test {:dependencies [[puppetlabs/kitchensink "0.3.1-SNAPSHOT" :classifier "test"]]}}
 
   :main puppetlabs.trapperkeeper.main
