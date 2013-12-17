@@ -1,4 +1,10 @@
 trapperkeeper-rack
 ==================
-lein run -m org.jruby.Main -S bundle install --path ./src/gems --gemfile ./src/ruby/Gemfile
 
+A project showing some examples of how to run Rack applications in trapperkeeper,
+including an example of how to consume clojure services.
+
+To run:
+
+    lein trampoline run --bootstrap-config ./test/clojure/examples/bootstrap.cfg \
+                        --config ./test/clojure/examples/config.ini
